@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.testclient import TestClient
 
 from fastapi_dapr_helper.pubsub import subscribe, DaprFastAPI
@@ -73,4 +73,39 @@ def test_generate_subscribe_route():
     assert subscription_info["pubsubname"] == "test_pubsub"
     assert subscription_info["topic"] == "test_topic"
     assert subscription_info["route"] == "/test"
+    assert subscription_info["metadata"] == {}
+
+
+def test_generate_subscribe_route_in_router():
+    app = FastAPI()
+    router = APIRouter()
+    dapr = DaprFastAPI()
+
+    path = "/test"
+    pubsub = "test_pubsub"
+    topic = "test_topic"
+
+    router_prefix = "/api"
+
+    @subscribe(app=router, path=path, pubsub=pubsub, topic=topic)
+    def test_endpoint():
+        return {"message": "test"}
+
+    app.include_router(router, prefix=router_prefix)
+    dapr.generate_subscribe_route(app)
+
+    # Check that the /dapr/subscribe route has been added
+    routes = [route.path for route in app.routes]
+    assert "/dapr/subscribe" in routes
+
+    # Test the /dapr/subscribe route
+    client = TestClient(app)
+    response = client.get("/dapr/subscribe")
+    assert response.status_code == 200
+    assert len(response.json()) == 1
+
+    subscription_info = response.json()[0]
+    assert subscription_info["pubsubname"] == pubsub
+    assert subscription_info["topic"] == topic
+    assert subscription_info["route"] == f"{ router_prefix }{ path }"
     assert subscription_info["metadata"] == {}

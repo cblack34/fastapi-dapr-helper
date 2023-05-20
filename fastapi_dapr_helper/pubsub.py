@@ -83,8 +83,9 @@ def subscribe(
 # pylint: disable=R0903
 class DaprFastAPI:
     """
-        Class to handle Dapr subscriptions and the FastAPI application.
-        """
+    Class to handle Dapr subscriptions and the FastAPI application.
+    """
+
     def __init__(self, remove_dapr_data: bool = False):
         self.remove_dapr_data = remove_dapr_data
         self._subscriptions = []
@@ -123,8 +124,8 @@ class DaprFastAPI:
 
     def generate_subscribe_route(self, app: FastAPI):
         """
-                Generates the /dapr/subscribe route in the FastAPI app.
-                """
+        Generates the /dapr/subscribe route in the FastAPI app.
+        """
         self._extract_subscriptions(app)
 
         app.add_api_route(
