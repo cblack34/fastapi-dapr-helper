@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "fastapi_dapr_helper"}]
 
 [tool.poetry.dependencies]
-python = "^3.7.2"
+python = ">=3.8.1,<4.0.0"
 fastapi = "^0.95.2"
 
 
@@ -16,7 +16,22 @@ pytest = "^7.3.1"
 black = "^23.3.0"
 pylint = "^2.17.4"
 httpx = "^0.24.1"
+flake8 = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[flake8]
+max-line-length = 120
+extend-exclude = "tests"
+
+[tool.pylint]
+max-line-length = 120
+#load-plugins = "pylint_junit"
+#output-format = "junit"
+#output = "pylint.xml"
+good-names = "i,j,k,v,ex,Run,_,db,f,e"
+extension-pkg-whitelist = "pydantic"
+logging-format-style = "new"
+ignore-paths = "tests(/.*)?"

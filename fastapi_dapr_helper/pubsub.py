@@ -1,3 +1,8 @@
+"""
+This module provides the subscribe decorator to be used in combination with a route generator
+to create subscriptions to Dapr pubsub topics with FastAPI.
+"""
+
 from typing import Optional, Dict, Any, List, Union
 
 from fastapi import FastAPI, APIRouter
@@ -8,11 +13,11 @@ def subscribe(
     path: str,
     pubsub: str,
     topic: str,
+    *args,
     tags: Optional[List[str]] = None,
     metadata: Optional[Dict[str, str]] = None,
     dead_letter_topic: Optional[str] = None,
     openapi_extra: Optional[Dict[str, Any]] = None,
-    *args,
     **kwargs,
 ) -> callable:
     """
