@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from fastapi_dapr_helper.pubsub import subscribe, DaprFastAPI
 
 
-def test_endpoint():
+def mock_endpoint():
     return {"message": "test"}
 
 
@@ -55,7 +55,7 @@ def test_generate_subscribe_route():
     dapr = DaprFastAPI()
 
     @subscribe(app=app, path="/test", pubsub="test_pubsub", topic="test_topic")
-    def test_endpoint():
+    def mock_endpoint():
         return {"message": "test"}
 
     dapr.generate_subscribe_route(app)
