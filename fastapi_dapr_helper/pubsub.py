@@ -3,7 +3,6 @@ This module provides the subscribe decorator to be used in combination with a ro
 to create subscriptions to Dapr pubsub topics with FastAPI.
 """
 import logging
-from pprint import pprint
 from typing import Optional, Dict, Any, List, Union
 
 from fastapi import FastAPI, APIRouter
@@ -81,7 +80,11 @@ def subscribe(
     return decorator
 
 
+# pylint: disable=R0903
 class DaprFastAPI:
+    """
+        Class to handle Dapr subscriptions and the FastAPI application.
+        """
     def __init__(self, remove_dapr_data: bool = False):
         self.remove_dapr_data = remove_dapr_data
         self._subscriptions = []
@@ -89,7 +92,7 @@ class DaprFastAPI:
     def _get_subscriptions(self):
         return self._subscriptions
 
-    def _extract_route_info(self, app: FastAPI) -> List[Dict[str, Any]]:
+    def _extract_subscriptions(self, app: FastAPI) -> List[Dict[str, Any]]:
         route_info = []
 
         for route in app.routes:
@@ -119,7 +122,10 @@ class DaprFastAPI:
         return self._subscriptions
 
     def generate_subscribe_route(self, app: FastAPI):
-        self._extract_route_info(app)
+        """
+                Generates the /dapr/subscribe route in the FastAPI app.
+                """
+        self._extract_subscriptions(app)
 
         app.add_api_route(
             path="/dapr/subscribe",

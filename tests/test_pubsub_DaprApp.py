@@ -30,7 +30,7 @@ def test_extract_route_info():
 
     assert not dapr._subscriptions  # The route info list should be empty initially
 
-    route_info = dapr._extract_route_info(app)
+    route_info = dapr._extract_subscriptions(app)
     assert (
         len(route_info) == 1
     )  # After extracting, there should be one item in the list
@@ -44,7 +44,7 @@ def test_extract_route_info():
 
     # If remove_dapr_data option is enabled, dapr information should be removed from the route
     dapr = DaprFastAPI(remove_dapr_data=True)
-    dapr._extract_route_info(app)
+    dapr._extract_subscriptions(app)
     for route in app.routes:
         if hasattr(route, "openapi_extra") and "dapr" in route.openapi_extra:
             assert False  # Fails the test if there is any route with 'dapr' in openapi_extra
