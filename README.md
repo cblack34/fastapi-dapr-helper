@@ -7,6 +7,8 @@ This library introduces a decorator named `subscribe` which, in conjunction with
 
 ## Installation
 
+installation does not work yet as pypi shut down new packages this weekend. 
+
 ### pip
 
 ```bash
