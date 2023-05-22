@@ -72,6 +72,25 @@ dapr.generate_subscribe_route(app)
 uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
 
+### Output
+
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/dapr/subscribe' \
+  -H 'accept: application/json'
+```
+
+```json
+[
+  {
+    "pubsubname": "test_pubsub",
+    "topic": "test_topic",
+    "route": "/test",
+    "metadata": {}
+  }
+]
+```
+
 ## Working Example with APIRouter
 
 ```python
@@ -92,6 +111,26 @@ dapr.generate_subscribe_route(app)
 
 uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
+
+### Output
+
+```bash
+curl -X 'GET' \
+  'http://localhost:8000/dapr/subscribe' \
+  -H 'accept: application/json'
+```
+
+```json
+[
+  {
+    "pubsubname": "test_pubsub",
+    "topic": "test_topic",
+    "route": "/api/test",
+    "metadata": {}
+  }
+]
+```
+
 
 ## Functionality Overview
 
