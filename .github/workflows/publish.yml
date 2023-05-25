@@ -22,5 +22,5 @@ jobs:
           PACKAGE_DIRECTORY: "./example-package/"
           PYTHON_VERSION: "3.10"
           ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.PUBLISH_REGISTRY_PASSWORD }}
+          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_REGISTRY: "https://test.pypi.org/legacy/"
