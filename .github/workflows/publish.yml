@@ -25,4 +25,5 @@ jobs:
           POETRY_VERSION: "1.2.1"
           POETRY_CORE_VERSION: "1.2.0"
           BRANCH: "main"
+          PYTHON_VERSION: "3.11"
 
