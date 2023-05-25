@@ -23,4 +23,6 @@ jobs:
           PUBLISH_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_REGISTRY: "https://test.pypi.org/legacy/"
           POETRY_VERSION: "1.2.1"
+          POETRY_CORE_VERSION: "1.2.0"
           BRANCH: "main"
+
