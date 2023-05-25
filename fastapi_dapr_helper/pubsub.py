@@ -101,6 +101,10 @@ class DaprFastAPI:
                 logging.info(f"Skipping route {route.path} as it has no openapi_extra")
                 continue
 
+            if route.openapi_extra is None:
+                logging.info(f"Skipping route {route.path} as it has no openapi_extra")
+                continue
+
             if "dapr" not in route.openapi_extra:
                 logging.info(f"Skipping route {route.path} as it has no dapr info")
                 continue

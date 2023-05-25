@@ -76,6 +76,36 @@ def test_generate_subscribe_route():
     assert subscription_info["metadata"] == {}
 
 
+def test_generate_subscribe_route_with_multiple_endpoints():
+    app = FastAPI()
+    dapr = DaprFastAPI()
+
+    @subscribe(app=app, path="/subscribe", pubsub="test_pubsub", topic="test_topic")
+    def subscribe_endpoint():
+        return {"message": "Subscription endpoint"}
+
+    @app.get("/get")
+    def get_endpoint():
+        return {"message": "GET endpoint"}
+
+    dapr.generate_subscribe_route(app)
+
+    # Check that the /dapr/subscribe route has been added
+    routes = [route.path for route in app.routes]
+    assert "/dapr/subscribe" in routes
+
+    # Test the /dapr/subscribe route
+    client = TestClient(app)
+    response = client.get("/dapr/subscribe")
+    assert response.status_code == 200
+    assert len(response.json()) == 1
+    subscription_info = response.json()[0]
+    assert subscription_info["pubsubname"] == "test_pubsub"
+    assert subscription_info["topic"] == "test_topic"
+    assert subscription_info["route"] == "/subscribe"
+    assert subscription_info["metadata"] == {}
+
+
 def test_generate_subscribe_route_in_router():
     app = FastAPI()
     router = APIRouter()
