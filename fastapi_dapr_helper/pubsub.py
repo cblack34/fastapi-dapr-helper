@@ -105,6 +105,8 @@ class DaprFastAPI:
                 logging.info(f"Skipping route {route.path} as it has no dapr info")
                 continue
 
+            logging.info(f"Extracting route {route.path} as it has dapr info")
+
             dapr_info = route.openapi_extra["dapr"]
             info = {
                 "pubsubname": dapr_info["pubsubname"],
