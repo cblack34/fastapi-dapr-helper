@@ -77,6 +77,8 @@ def subscribe(
             **kwargs,
         )
 
+        return func
+
     return decorator
 
 
