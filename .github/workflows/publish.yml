@@ -1,30 +1,30 @@
-name: Build and publish python package
-
-on:
-  release:
-    types: [ published ]
-
-jobs:
-
-  tests:
-    uses: ./.github/workflows/tests.yml
-
-  publish-service-client-package:
-    needs: tests
-    if: ${{ needs.tests.result == 'success' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Publish PyPi package
-        uses: code-specialist/pypi-poetry-publish@v1
-        with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_REGISTRY: "https://test.pypi.org/legacy/"
-          POETRY_VERSION: "1.2.1"
-          POETRY_CORE_VERSION: "1.2.0"
-          BRANCH: "main"
-          PYTHON_VERSION: "3.11"
-          PACKAGE_DIRECTORY: "./fastapi_dapr_helper/"
-
+#name: Build and publish python package
+#
+#on:
+#  release:
+#    types: [ published ]
+#
+#jobs:
+#
+#  tests:
+#    uses: ./.github/workflows/tests.yml
+#
+#  publish-service-client-package:
+#    needs: tests
+#    if: ${{ needs.tests.result == 'success' }}
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write
+#    steps:
+#      - name: Publish PyPi package
+#        uses: code-specialist/pypi-poetry-publish@v1
+#        with:
+#          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          PUBLISH_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+#          PUBLISH_REGISTRY: "https://test.pypi.org/legacy/"
+#          POETRY_VERSION: "1.2.1"
+#          POETRY_CORE_VERSION: "1.2.0"
+#          BRANCH: "main"
+#          PYTHON_VERSION: "3.11"
+#          PACKAGE_DIRECTORY: "./fastapi_dapr_helper/"
+#
