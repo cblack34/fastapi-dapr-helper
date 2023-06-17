@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fastapi-dapr-helper"
-version = "v0.1.0-alpha"
+version = "v0.1.1-alpha"
 description = ""
 authors = ["Clayton Black <CBlack@fanatics.com>"]
 readme = "README.md"
